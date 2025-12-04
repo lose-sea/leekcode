@@ -78,26 +78,54 @@ using namespace std;
 // };
 
 
-// 滑动窗口二
+// // 滑动窗口二
+// class Solution {
+// public:
+//     int minSubArrayLen(int target, vector<int>& nums) {
+//         int len = INT_MAX; 
+//         int i = 0; 
+//         int size = 0; 
+//         int sum = 0; 
+//         for (size_t j = 0; j < nums.size(); j++) {
+//             sum += nums[j]; 
+//             while (sum >= target) {
+//                 size = j - i + 1; 
+//                 len = min(size, len); 
+//                 sum -= nums[i++]; 
+//             }
+//         }
+//         return len == INT_MAX ? 0 : len; 
+//     } 
+// };
+
+
+
+// 滑动窗口
 class Solution {
 public:
     int minSubArrayLen(int target, vector<int>& nums) {
-        int len = INT_MAX; 
-        int i = 0; 
-        int size = 0; 
-        int sum = 0; 
-        for (size_t j = 0; j < nums.size(); j++) {
-            sum += nums[j]; 
-            while (sum >= target) {
-                size = j - i + 1; 
-                len = min(size, len); 
-                sum -= nums[i++]; 
+       int fast = 0; 
+       int slow = 0; 
+       int minlen = INT_MAX; 
+       int total = 0; 
+       int currlen = 0; 
+       for (fast = 0; fast < nums.size(); fast++) {
+            total += nums.at(fast); 
+            currlen++;  
+            if (total >= target) { 
+                while (total >= target) {  
+                    minlen = currlen < minlen ? currlen : minlen; 
+                    total -= nums[slow]; 
+                    slow++; 
+                    currlen--; 
+                }
             }
-        }
-        return len == INT_MAX ? 0 : len; 
-    } 
+       } 
+       if (minlen == INT_MAX) {
+        return 0; 
+       }
+       return minlen; 
+    }
 };
-
-
 // @lc code=end
 
