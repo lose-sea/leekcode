@@ -49,18 +49,45 @@ public :
 // }; 
 
 // 哈希表
+// class Solution {
+// public:
+//     ListNode *detectCycle(ListNode *head) {
+//         unordered_set<ListNode*> visited; 
+//         while (head != nullptr) {
+//             if (visited.count(head)) {
+//                 return head; 
+//             } 
+//             visited.insert(head); 
+//             head = head->next; 
+//         } 
+//         return nullptr; 
+//     }
+// };  
+
+
+
 class Solution {
 public:
-    ListNode *detectCycle(ListNode *head) {
-        unordered_set<ListNode*> visited; 
-        while (head != nullptr) {
-            if (visited.count(head)) {
-                return head; 
+    ListNode *detectCycle(ListNode *head) { 
+        if (head == nullptr || head->next == nullptr) {
+            return nullptr; 
+        }
+        ListNode* fast = head; 
+        ListNode* slow = head; 
+        while (fast != nullptr && fast->next != nullptr) {
+            fast = fast->next->next; 
+            slow = slow->next;  
+            if (fast == slow) {
+                fast = head; 
+                while (fast != slow) {
+                    fast = fast->next; 
+                    slow = slow->next; 
+                }  
+                return slow; 
             } 
-            visited.insert(head); 
-            head = head->next; 
         } 
-        return nullptr; 
+        
+        return nullptr;  
     }
 };
 // @lc code=end
