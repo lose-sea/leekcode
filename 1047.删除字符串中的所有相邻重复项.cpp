@@ -8,21 +8,23 @@
 #include<unordered_set> 
 #include<vector> 
 #include<algorithm>   
-#include<queue> 
-#include<stack>
+#include<queue>  
+#include<stack> 
 using namespace std; 
 // @lc code=start
 class Solution {
 public:
     string removeDuplicates(string s) {
-        stack<char> st; 
-        int len = s.size(); 
-        for (int i = 0; i < len; i++) {
-            if (s[i] != st.top()) {
-                st.pop(); 
-                st.push(s[i]); 
-            } 
-        }
+        string st; 
+        int len = s.size();  
+        for (int i = 0; i < len; i++) { 
+            if (!st.empty() && s[i] == st.back()) {
+                st.pop_back(); 
+            } else {
+                st.push_back(s[i]); 
+            }
+        } 
+        return st; 
     }
 };
 // @lc code=end
