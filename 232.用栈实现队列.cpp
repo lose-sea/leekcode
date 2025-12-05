@@ -40,8 +40,8 @@ public:
         outStack.pop(); 
         return x; 
     }
-    
-    int peek() {
+    // 查找,直接返回输出栈的栈顶元素
+    int peek() { 
         if (outStack.empty()) {
             in2out(); 
         } 
