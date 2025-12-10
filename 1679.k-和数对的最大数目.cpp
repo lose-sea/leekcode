@@ -37,7 +37,7 @@ public:
                 right--; 
             }
         } 
-        return result; 
+        return result;  
     }
 };
 // @lc code=end
