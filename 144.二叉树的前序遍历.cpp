@@ -3,7 +3,18 @@
  *
  * [144] 二叉树的前序遍历
  */
-
+#include<iostream> 
+#include<set> 
+#include<unordered_set> 
+#include<unordered_map>
+#include<vector> 
+#include<algorithm>   
+#include<queue>  
+#include<string> 
+#include<map> 
+#include<stack> 
+#include<deque> 
+using namespace std;
 // @lc code=start
 /**
  * Definition for a binary tree node.
@@ -16,10 +27,44 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+// // 递归
+// class Solution {
+// public:
+//     vector<int> result; 
+//     vector<int> preorderTraversal(TreeNode* root) { 
+
+//         if (root == nullptr) {
+//             return result; 
+//         }
+//         result.push_back(root->val); 
+//         preorderTraversal(root->left); 
+//         preorderTraversal(root->right); 
+//         return result; 
+//     }
+// };
+
+
+// 迭代
 class Solution {
 public:
-    vector<int> preorderTraversal(TreeNode* root) {
-        
+    vector<int> preorderTraversal(TreeNode* root) { 
+        vector<int> result; 
+        stack<TreeNode*> stk; 
+        if (root == NULL) {
+            return result; 
+        } 
+        TreeNode* node = root;   
+        while (!stk.empty() || node != nullptr) {
+            while (node != nullptr) {
+                stk.emplace(node); 
+                result.emplace_back(node->val); 
+                node = node->left; 
+            } 
+            node = stk.top(); 
+            stk.pop(); 
+            node = node->right; 
+        }
+        return result; 
     }
 };
 // @lc code=end
