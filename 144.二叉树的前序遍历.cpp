@@ -16,17 +16,17 @@
 #include<deque> 
 using namespace std;
 // @lc code=start
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
- */
+/*
+ * Definition for a binary tree node.*/
+   struct TreeNode {
+       int val;
+       TreeNode *left;
+       TreeNode *right;
+       TreeNode() : val(0), left(nullptr), right(nullptr) {}
+       TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+       TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+   };
+   
 // // 递归
 // class Solution {
 // public:
@@ -44,28 +44,58 @@ using namespace std;
 // };
 
 
+// // 迭代
+// class Solution {
+// public:
+//     vector<int> preorderTraversal(TreeNode* root) { 
+//         vector<int> result; 
+//         stack<TreeNode*> stk; 
+//         if (root == NULL) {
+//             return result; 
+//         } 
+//         TreeNode* node = root;   
+//         while (!stk.empty() || node != nullptr) {
+//             while (node != nullptr) {
+//                 stk.emplace(node); 
+//                 result.emplace_back(node->val); 
+//                 node = node->left; 
+//             } 
+//             node = stk.top(); 
+//             stk.pop(); 
+//             node = node->right; 
+//         }
+//         return result; 
+//     }
+// };
+
+
 // 迭代
 class Solution {
 public:
     vector<int> preorderTraversal(TreeNode* root) { 
-        vector<int> result; 
-        stack<TreeNode*> stk; 
-        if (root == NULL) {
+        vector<int> result;  
+        if (root == nullptr) {
             return result; 
-        } 
-        TreeNode* node = root;   
-        while (!stk.empty() || node != nullptr) {
-            while (node != nullptr) {
-                stk.emplace(node); 
-                result.emplace_back(node->val); 
-                node = node->left; 
-            } 
-            node = stk.top(); 
-            stk.pop(); 
-            node = node->right; 
         }
+        stack<TreeNode*> stk; 
+        stk.push(root); 
+        while (!stk.empty()) {
+            TreeNode* node = stk.top(); 
+            stk.pop(); 
+            result.emplace_back(node->val); 
+            if (node->right) {
+                stk.emplace(node->right); 
+            } 
+            if (node->left) {
+                stk.emplace(node->left); 
+            } 
+        } 
         return result; 
     }
 };
+
+
+
+
 // @lc code=end
 
