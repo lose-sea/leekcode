@@ -69,30 +69,57 @@ using namespace std;
 // };
 
 
-// 迭代
-class Solution {
-public:
-    vector<int> preorderTraversal(TreeNode* root) { 
-        vector<int> result;  
-        if (root == nullptr) {
-            return result; 
-        }
-        stack<TreeNode*> stk; 
-        stk.push(root); 
-        while (!stk.empty()) {
-            TreeNode* node = stk.top(); 
-            stk.pop(); 
-            result.emplace_back(node->val); 
-            if (node->right) {
-                stk.emplace(node->right); 
-            } 
-            if (node->left) {
-                stk.emplace(node->left); 
-            } 
-        } 
-        return result; 
-    }
-};
+// // 迭代
+// class Solution {
+// public:
+//     vector<int> preorderTraversal(TreeNode* root) { 
+//         vector<int> result;  
+//         if (root == nullptr) {
+//             return result; 
+//         }
+//         stack<TreeNode*> stk; 
+//         stk.push(root); 
+//         while (!stk.empty()) {
+//             TreeNode* node = stk.top(); 
+//             stk.pop(); 
+//             result.emplace_back(node->val); 
+//             if (node->right) {
+//                 stk.emplace(node->right); 
+//             } 
+//             if (node->left) {
+//                 stk.emplace(node->left); 
+//             } 
+//         } 
+//         return result; 
+//     }
+// };
+
+
+
+
+// // 迭代
+// class Solution {
+// public:
+//     vector<int> preorderTraversal(TreeNode* root) { 
+//         vector<int> result; 
+//         if (root == nullptr) {
+//             return result; 
+//         };  
+//         stack<TreeNode*> stk; 
+//         TreeNode* node = root; 
+//         while (!stk.empty() || node != nullptr) {
+//             while (node != nullptr) { 
+//                 result.emplace_back(node->val); 
+//                 stk.emplace(node);
+//                 node = node->left; 
+//             } 
+//             node = stk.top(); 
+//             stk.pop(); 
+//             node = node->right; 
+//         } 
+//         return result; 
+//     }
+// };
 
 
 
