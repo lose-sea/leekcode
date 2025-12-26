@@ -56,29 +56,62 @@ struct TreeNode {
 
 
 
- // 迭代
+//  // 迭代
+// class Solution {
+// public:
+    
+//     vector<int> inorderTraversal(TreeNode* root) {
+//         vector<int> result;  
+//         if (root == nullptr) {
+//             return result; 
+//         } 
+//         stack<TreeNode*> stk; 
+//         TreeNode* node = root; 
+//         while (!stk.empty() || node != nullptr) { 
+//             while (node != nullptr) {
+//                 stk.emplace(node); 
+//                 node = node->left; 
+//             } 
+//             node = stk.top(); 
+//             stk.pop(); 
+//             result.emplace_back(node->val); 
+//             node = node->right;  
+//         } 
+//         return result; 
+//     }
+// };
+
+
 class Solution {
 public:
-    
     vector<int> inorderTraversal(TreeNode* root) {
-        vector<int> result;  
+        vector<int> result; 
         if (root == nullptr) {
             return result; 
-        } 
+        };  
         stack<TreeNode*> stk; 
-        TreeNode* node = root; 
-        while (!stk.empty() || node != nullptr) { 
-            while (node != nullptr) {
+        stk.push(root); 
+        while (!stk.empty()) {
+            TreeNode* node = stk.top(); 
+            stk.pop();
+            if (node) { 
+                if (node->right) {
+                    stk.emplace(node->right); 
+                } 
                 stk.emplace(node); 
-                node = node->left; 
-            } 
-            node = stk.top(); 
-            stk.pop(); 
-            result.emplace_back(node->val); 
-            node = node->right;  
-        } 
+                stk.emplace(nullptr); 
+                if (node->left) {
+                    stk.emplace(node->left); 
+                }
+            } else {
+                 node = stk.top(); 
+                 stk.pop(); 
+                 result.emplace_back(node->val); 
+            }
+        }
         return result; 
     }
 };
+        
 // @lc code=end
 
