@@ -149,6 +149,40 @@ using namespace std;
 
 
 
+// // 迭代
+// class Solution {
+// public:
+//     vector<int> preorderTraversal(TreeNode* root) { 
+//         vector<int> result; 
+//         if (root == nullptr) {
+//             return result; 
+//         } 
+//         stack<TreeNode*> stk; 
+//         stk.emplace(root); 
+//         while (!stk.empty()) {
+//             TreeNode* node = stk.top(); 
+//             if (node) { 
+//                 stk.pop(); 
+//                 if (node->right) {
+//                     stk.emplace(node->right); 
+//                 }  
+//                 if (node->left) {
+//                     stk.emplace(node->left); 
+//                 } 
+//                 stk.emplace(node); 
+//                 stk.emplace(nullptr); 
+//             } else {
+//                 stk.pop(); 
+//                 node = stk.top(); 
+//                 stk.pop(); 
+//                 result.emplace_back(node->val); 
+//             }
+//         } 
+//         return result; 
+//     }
+// };
+
+
 // 迭代
 class Solution {
 public:
@@ -158,24 +192,16 @@ public:
             return result; 
         } 
         stack<TreeNode*> stk; 
-        stk.emplace(root); 
+        stk.push(root); 
         while (!stk.empty()) {
             TreeNode* node = stk.top(); 
-            if (node) { 
-                stk.pop(); 
-                if (node->right) {
-                    stk.emplace(node->right); 
-                }  
-                if (node->left) {
-                    stk.emplace(node->left); 
-                } 
-                stk.emplace(node); 
-                stk.emplace(nullptr); 
-            } else {
-                stk.pop(); 
-                node = stk.top(); 
-                stk.pop(); 
-                result.emplace_back(node->val); 
+            stk.pop(); 
+            result.emplace_back(node->val); 
+            if (node->right) {
+                stk.push(node->right); 
+            } 
+            if (node->left) {
+              stk.push(node->left); 
             }
         } 
         return result; 

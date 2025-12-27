@@ -110,7 +110,41 @@ using namespace std;
 
 
 
-// 迭代
+// // 迭代
+// class Solution { 
+// public:
+//     vector<int> postorderTraversal(TreeNode* root) { 
+//         vector<int> result; 
+//         if (root == nullptr) {
+//             return result; 
+//         } 
+//         stack<TreeNode*> stk; 
+//         stk.emplace(root); 
+//         while (!stk.empty()) {
+//             TreeNode* node = stk.top(); 
+//             if (node) {
+//                 stk.pop(); 
+//                 stk.emplace(node); 
+//                 stk.emplace(nullptr); 
+//                 if (node->right) {
+//                     stk.emplace(node->right); 
+//                 } 
+//                 if (node->left) {
+//                     stk.emplace(node->left); 
+//                 }
+//             } else {
+//                 stk.pop(); 
+//                 node = stk.top(); 
+//                 stk.pop(); 
+//                 result.emplace_back(node->val); 
+//             }
+//         } 
+//         return result; 
+//     } 
+// }; 
+
+
+
 class Solution { 
 public:
     vector<int> postorderTraversal(TreeNode* root) { 
@@ -119,25 +153,23 @@ public:
             return result; 
         } 
         stack<TreeNode*> stk; 
-        stk.emplace(root); 
-        while (!stk.empty()) {
-            TreeNode* node = stk.top(); 
-            if (node) {
-                stk.pop(); 
+        TreeNode* node = root; 
+        TreeNode* prev = nullptr; 
+        while (!stk.empty() || node != nullptr) {
+            while (node) {
                 stk.emplace(node); 
-                if (node->right) {
-                    stk.emplace(node->right); 
-                } 
-                if (node->left) {
-                    stk.emplace(node->left); 
-                }
-            } else {
+                node = node->left; 
+            }  
+            node = stk.top();  
+            if (node->right == nullptr || node->right == prev) {  
+                result.emplace_back(node->val);  
                 stk.pop(); 
-                node = stk.top(); 
-                stk.pop(); 
-                result.emplace_back(node->val); 
+                prev = node; 
+                node = nullptr; 
+            } else { 
+                node = node->right; 
             }
-        } 
+        }
         return result; 
     } 
 };
