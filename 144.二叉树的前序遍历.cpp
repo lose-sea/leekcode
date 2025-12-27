@@ -123,6 +123,33 @@ using namespace std;
 
 
 
+// 迭代
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) { 
+        vector<int> result; 
+        if (root == nullptr) {
+          return result; 
+        } 
+        stack<TreeNode*> stk; 
+        TreeNode* node = root; 
+        while (!stk.empty() || node != nullptr) {
+            while (node) {
+                stk.emplace(node); 
+                result.emplace_back(node->val); 
+                node = node->left; 
+            } 
+            node = stk.top(); 
+            result.emplace_back(node->val); 
+            stk.pop(); 
+            node = node->right; 
+        } 
+        return result; 
+    }
+};
+
+
+
 
 // @lc code=end
 

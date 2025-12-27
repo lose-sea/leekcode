@@ -81,6 +81,73 @@ struct TreeNode {
 //     }
 // };
 
+// 统一迭代法
+// class Solution {
+// public:
+//     vector<int> inorderTraversal(TreeNode* root) {
+//         vector<int> result; 
+//         if (root == nullptr) {
+//             return result; 
+//         };  
+//         stack<TreeNode*> stk; 
+//         stk.push(root); 
+//         while (!stk.empty()) {
+//             TreeNode* node = stk.top(); 
+//             stk.pop();
+//             if (node) { 
+//                 if (node->right) {
+//                     stk.emplace(node->right); 
+//                 } 
+//                 stk.emplace(node); 
+//                 stk.emplace(nullptr); 
+//                 if (node->left) {
+//                     stk.emplace(node->left); 
+//                 }
+//             } else {
+//                  node = stk.top(); 
+//                  stk.pop(); 
+//                  result.emplace_back(node->val); 
+//             }
+//         }
+//         return result; 
+//     }
+// };
+
+
+
+
+// class Solution {
+// public:
+//     vector<int> inorderTraversal(TreeNode* root) {
+//         vector<int> result; 
+//         if (root == nullptr) {
+//             return result; 
+//         };  
+//         stack<TreeNode*> stk; 
+//         stk.emplace(root); 
+//         while (!stk.empty()) {
+//             TreeNode* node = stk.top(); 
+//             if (node) { 
+//                 stk.pop(); 
+//                 if (node->right) {
+//                 stk.emplace(node->right); 
+//                 } 
+//                 stk.emplace(node); 
+//                 stk.emplace(nullptr); 
+//                 if (node->left) {
+//                     stk.emplace(node->left); 
+//                 } 
+//             } else {
+//                 stk.pop(); 
+//                 node = stk.top(); 
+//                 stk.pop(); 
+//                 result.emplace_back(node->val); 
+//             } 
+//         } 
+//         return result; 
+//     }
+// }; 
+
 
 class Solution {
 public:
@@ -90,25 +157,17 @@ public:
             return result; 
         };  
         stack<TreeNode*> stk; 
-        stk.push(root); 
-        while (!stk.empty()) {
-            TreeNode* node = stk.top(); 
-            stk.pop();
-            if (node) { 
-                if (node->right) {
-                    stk.emplace(node->right); 
-                } 
+        TreeNode* node = root; 
+        while (!stk.empty() || node != nullptr) {
+            while (node != nullptr) { 
                 stk.emplace(node); 
-                stk.emplace(nullptr); 
-                if (node->left) {
-                    stk.emplace(node->left); 
-                }
-            } else {
-                 node = stk.top(); 
-                 stk.pop(); 
-                 result.emplace_back(node->val); 
-            }
-        }
+                node = node->left; 
+            } 
+            node = stk.top(); 
+            stk.pop(); 
+            result.emplace_back(node->val); 
+            node = node->right; 
+        } 
         return result; 
     }
 };
