@@ -123,26 +123,60 @@ using namespace std;
 
 
 
+// // 迭代
+// class Solution {
+// public:
+//     vector<int> preorderTraversal(TreeNode* root) { 
+//         vector<int> result; 
+//         if (root == nullptr) {
+//           return result; 
+//         } 
+//         stack<TreeNode*> stk; 
+//         TreeNode* node = root; 
+//         while (!stk.empty() || node != nullptr) {
+//             while (node) {
+//                 stk.emplace(node); 
+//                 result.emplace_back(node->val); 
+//                 node = node->left; 
+//             } 
+//             node = stk.top(); 
+//             stk.pop(); 
+//             node = node->right; 
+//         } 
+//         return result; 
+//     }
+// };
+
+
+
 // 迭代
 class Solution {
 public:
     vector<int> preorderTraversal(TreeNode* root) { 
         vector<int> result; 
         if (root == nullptr) {
-          return result; 
+            return result; 
         } 
         stack<TreeNode*> stk; 
-        TreeNode* node = root; 
-        while (!stk.empty() || node != nullptr) {
-            while (node) {
+        stk.emplace(root); 
+        while (!stk.empty()) {
+            TreeNode* node = stk.top(); 
+            if (node) { 
+                stk.pop(); 
+                if (node->right) {
+                    stk.emplace(node->right); 
+                }  
+                if (node->left) {
+                    stk.emplace(node->left); 
+                } 
                 stk.emplace(node); 
+                stk.emplace(nullptr); 
+            } else {
+                stk.pop(); 
+                node = stk.top(); 
+                stk.pop(); 
                 result.emplace_back(node->val); 
-                node = node->left; 
-            } 
-            node = stk.top(); 
-            result.emplace_back(node->val); 
-            stk.pop(); 
-            node = node->right; 
+            }
         } 
         return result; 
     }
