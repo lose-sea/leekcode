@@ -70,16 +70,60 @@ struct TreeNode {
 
 
 
-// 递归
+// // 递归
+// class Solution {
+// public:
+//     TreeNode* invertTree(TreeNode* root) {
+//         if (!root) {
+//             return root; 
+//         }  
+//         swap(root->left, root->right); 
+//         invertTree(root->left); 
+//         invertTree(root->right); 
+//         return root; 
+//     }
+// };
+
+// // 递归
+// class Solution {
+// public:
+//     TreeNode* invertTree(TreeNode* root) {
+//         if (root == nullptr) {
+//             return root; 
+//         }  
+//         swap(root->left, root->right); 
+//         invertTree(root->left); 
+//         invertTree(root->right); 
+//         return root; 
+//     }
+// };
+
+
+
 class Solution {
 public:
     TreeNode* invertTree(TreeNode* root) {
-        if (!root) {
+        if (root == nullptr) {
             return root; 
         }  
-        swap(root->left, root->right); 
-        invertTree(root->left); 
-        invertTree(root->right); 
+        queue<TreeNode*> que; 
+        que.push(root); 
+        while (!que.empty()) {
+            int len = que.size(); 
+            for (int i = 0; i < len; i++) {
+                TreeNode* node = que.front(); 
+                que.pop(); 
+                if (node->left) {
+                    que.push(node->left); 
+                } 
+                if (node->right) {
+                    que.push(node->right); 
+                } 
+                TreeNode* temp = node->left; 
+                node->left = node->right;  
+                node->right = temp; 
+            }
+        } 
         return root; 
     }
 };
