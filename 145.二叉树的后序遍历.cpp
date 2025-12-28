@@ -145,6 +145,37 @@ using namespace std;
 
 
 
+// class Solution { 
+// public:
+//     vector<int> postorderTraversal(TreeNode* root) { 
+//         vector<int> result; 
+//         if (root == nullptr) {
+//             return result; 
+//         } 
+//         stack<TreeNode*> stk; 
+//         TreeNode* node = root; 
+//         TreeNode* prev = nullptr; 
+//         while (!stk.empty() || node != nullptr) {
+//             while (node) {
+//                 stk.emplace(node); 
+//                 node = node->left; 
+//             }  
+//             node = stk.top();  
+//             if (node->right == nullptr || node->right == prev) {  
+//                 result.emplace_back(node->val);  
+//                 stk.pop(); 
+//                 prev = node; 
+//                 node = nullptr; 
+//             } else { 
+//                 node = node->right; 
+//             }
+//         }
+//         return result; 
+//     } 
+// };
+
+
+
 class Solution { 
 public:
     vector<int> postorderTraversal(TreeNode* root) { 
@@ -153,25 +184,24 @@ public:
             return result; 
         } 
         stack<TreeNode*> stk; 
-        TreeNode* node = root; 
-        TreeNode* prev = nullptr; 
-        while (!stk.empty() || node != nullptr) {
-            while (node) {
-                stk.emplace(node); 
-                node = node->left; 
-            }  
-            node = stk.top();  
-            if (node->right == nullptr || node->right == prev) {  
-                result.emplace_back(node->val);  
-                stk.pop(); 
-                prev = node; 
-                node = nullptr; 
-            } else { 
-                node = node->right; 
+        TreeNode* node = root;  
+        stk.push(root); 
+        while (!stk.empty()) {
+            TreeNode* node = stk.top(); 
+            stk.pop(); 
+            result.push_back(node->val); 
+            if (node->left) {
+                stk.push(node->left); 
+            } 
+            if (node->right) {
+                stk.push(node->right); 
             }
-        }
+        } 
+        reverse(result.begin(), result.end()); 
         return result; 
-    } 
+    }
 };
 // @lc code=end
+
+
 

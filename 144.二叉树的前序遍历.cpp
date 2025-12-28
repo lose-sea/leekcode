@@ -183,6 +183,31 @@ using namespace std;
 // };
 
 
+// // 迭代
+// class Solution {
+// public:
+//     vector<int> preorderTraversal(TreeNode* root) { 
+//         vector<int> result; 
+//         if (root == nullptr) {
+//             return result; 
+//         } 
+//         stack<TreeNode*> stk; 
+//         stk.push(root); 
+//         while (!stk.empty()) {
+//             TreeNode* node = stk.top(); 
+//             stk.pop(); 
+//             result.emplace_back(node->val); 
+//             if (node->right) {
+//                 stk.push(node->right); 
+//             } 
+//             if (node->left) {
+//               stk.push(node->left); 
+//             }
+//         } 
+//         return result; 
+//     }
+// };
+
 // 迭代
 class Solution {
 public:
@@ -192,20 +217,21 @@ public:
             return result; 
         } 
         stack<TreeNode*> stk; 
+        TreeNode* node = root;  
         stk.push(root); 
         while (!stk.empty()) {
             TreeNode* node = stk.top(); 
             stk.pop(); 
-            result.emplace_back(node->val); 
+            result.push_back(node->val); 
             if (node->right) {
                 stk.push(node->right); 
             } 
             if (node->left) {
-              stk.push(node->left); 
+                stk.push(node->left); 
             }
-        } 
+        }
         return result; 
-    }
+    } 
 };
 
 
