@@ -84,13 +84,21 @@ public:
         que.emplace(root); 
         while (!que.empty()) {
             int len = que.size(); 
-            vector<int> vec; 
-            for (int i = 0; i < len; i++) {
+            for (int i = 0; i < len; i++) { 
                 TreeNode* node = que.front(); 
                 que.pop(); 
-                
-            }
-        }
+                if (i == len - 1) {
+                    result.emplace_back(node->val); 
+                } 
+                if (node->left) {
+                    que.push(node->left); 
+                } 
+                if (node->right) {
+                    que.push(node->right); 
+                }
+            } 
+        } 
+        return result; 
     }
 }; 
 // @lc code=end
