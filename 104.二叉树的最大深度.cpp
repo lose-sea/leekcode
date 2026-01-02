@@ -67,30 +67,59 @@ struct TreeNode {
 // };
 
 
+// class Solution {
+// public:
+//     int maxDepth(TreeNode* root) {
+//         if (!root) {
+//             return 0; 
+//         } 
+//         int m = 0; 
+//         queue<TreeNode*> que; 
+//         que.push(root); 
+//         while (!que.empty()) { 
+//             m++; 
+//             int len = que.size(); 
+//             for (int i = 0; i < len; i++) {
+//                 TreeNode* node = que.front(); 
+//                 que.pop(); 
+//                 if (node->left) {
+//                     que.push(node->left); 
+//                 } 
+//                 if (node->right) {
+//                     que.push(node->right); 
+//                 }
+//             }
+//         } 
+//         return m; 
+//     }
+// };
+
+
 class Solution {
 public:
+    int result; 
+    void getDepth(TreeNode* root, int depth) { 
+        result = result > depth ? result : depth; 
+        if (root == nullptr) {
+            return; 
+        } 
+        if (root->left) {
+            depth++; 
+            getDepth(root->left, depth); 
+            depth--; 
+        } 
+        if (root->right) {
+            depth++; 
+            getDepth(root->right, depth); 
+            depth--; 
+        } 
+    }
     int maxDepth(TreeNode* root) {
-        if (!root) {
-            return 0; 
+        if (root == nullptr) {
+            return result; 
         } 
-        int m = 0; 
-        queue<TreeNode*> que; 
-        que.push(root); 
-        while (!que.empty()) { 
-            m++; 
-            int len = que.size(); 
-            for (int i = 0; i < len; i++) {
-                TreeNode* node = que.front(); 
-                que.pop(); 
-                if (node->left) {
-                    que.push(node->left); 
-                } 
-                if (node->right) {
-                    que.push(node->right); 
-                }
-            }
-        } 
-        return m; 
+        getDepth(root, 1); 
+        return result; 
     }
 };
 // @lc code=end

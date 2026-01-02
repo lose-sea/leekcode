@@ -68,33 +68,62 @@ struct TreeNode {
 //     }
 // };
 
+// class Solution {
+// public:
+//     int minDepth(TreeNode* root) {
+//         if (!root) {
+//             return 0; 
+//         } 
+//         int m = 0; 
+//         queue<TreeNode*> que; 
+//         que.push(root); 
+//         while (!que.empty()) {
+//             int len = que.size(); 
+//             for (int i = 0; i < len; i++) {
+//                 TreeNode* node = que.front(); 
+//                 que.pop(); 
+//                 if (node->left == nullptr && node->right == nullptr) {
+//                     return m; 
+//                 } 
+//                 if (node->left) {
+//                     que.push(node->left); 
+//                 } 
+//                 if (node->right) {
+//                     que.push(node->right); 
+//                 } 
+//                 m++; 
+//             }
+//         } 
+//         return m; 
+//     }
+// };
+
 class Solution {
-public:
+public: 
+    int result = INT_MAX; 
+    void getDepth(TreeNode* root, int depth) {  
+        if (root->left == nullptr && root->right == nullptr) {
+            result = result < depth ? result : depth; 
+            return; 
+        } 
+        if (root->left) {
+            depth++; 
+            getDepth(root->left, depth); 
+            depth--;
+        } 
+        if (root->right) {
+            depth++; 
+            getDepth(root->right, depth); 
+            depth--; 
+        }
+    }
+
     int minDepth(TreeNode* root) {
-        if (!root) {
+        if (root == nullptr) {
             return 0; 
         } 
-        int m = 0; 
-        queue<TreeNode*> que; 
-        que.push(root); 
-        while (!que.empty()) {
-            int len = que.size(); 
-            for (int i = 0; i < len; i++) {
-                TreeNode* node = que.front(); 
-                que.pop(); 
-                if (node->left == nullptr && node->right == nullptr) {
-                    return m; 
-                } 
-                if (node->left) {
-                    que.push(node->left); 
-                } 
-                if (node->right) {
-                    que.push(node->right); 
-                } 
-                m++; 
-            }
-        } 
-        return m; 
+        getDepth(root, 1); 
+        return result; 
     }
 };
 // @lc code=end
