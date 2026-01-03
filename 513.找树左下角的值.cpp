@@ -87,9 +87,6 @@ public:
         path(root->right, curr + 1); 
     }
     int findBottomLeftValue(TreeNode* root) {  
-        if (root == nullptr) {
-            return 0; 
-        }
         path(root, 1); 
         return result; 
    }
