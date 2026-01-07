@@ -37,28 +37,49 @@ struct TreeNode {
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+// class Solution {
+// public: 
+//     TreeNode* buildTree(vector<int>& nums) {
+//         if (nums.empty()) {
+//             return nullptr; 
+//         } 
+//         int len = nums.size(); 
+//         int mid = len / 2; 
+//         TreeNode* root = new TreeNode(nums[mid]); 
+//         vector<int> left(nums.begin(), nums.begin() + mid); 
+//         vector<int> right(nums.begin() + mid + 1, nums.end()); 
+//         root->left = buildTree(left); 
+//         root->right = buildTree(right); 
+//         return root;  
+//     }
+    
+//     TreeNode* sortedArrayToBST(vector<int>& nums) {
+//         if (nums.empty()) {
+//             return nullptr; 
+//         } 
+//         TreeNode* root = buildTree(nums); 
+//         return root; 
+//     }
+// };
+
 class Solution {
 public: 
-    TreeNode* buildTree(vector<int>& nums) {
-        if (nums.empty()) {
+    TreeNode* buildTree(vector<int>& nums, int left, int right) {
+        if (left >= right) {
             return nullptr; 
         } 
-        int len = nums.size(); 
-        int mid = len / 2; 
+        int mid = left + (right - left) / 2; 
         TreeNode* root = new TreeNode(nums[mid]); 
-        vector<int> left(nums.begin(), nums.begin() + mid); 
-        vector<int> right(nums.begin() + mid + 1, nums.end()); 
-        root->left = buildTree(left); 
-        root->right = buildTree(right); 
-        return root;  
+        root->left = buildTree(nums, left, mid); 
+        root->right = buildTree(nums, mid + 1, right); 
+        return root; 
     }
     
     TreeNode* sortedArrayToBST(vector<int>& nums) {
         if (nums.empty()) {
             return nullptr; 
         } 
-        TreeNode* root = buildTree(nums); 
-        return root; 
+        return buildTree(nums, 0, nums.size()); 
     }
 };
 // @lc code=end

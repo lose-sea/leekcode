@@ -43,8 +43,6 @@ public:
                 case 'D': y++; break; 
                 case 'U': y--; break;  
             }  
-
-
         } 
         return st.size(); 
     }
