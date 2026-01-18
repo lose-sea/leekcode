@@ -9,28 +9,31 @@
 #include<unordered_map>
 #include<vector> 
 #include<algorithm>   
-#include<queue>   
-#include<numeric>
+#include<queue>  
 #include<string> 
 #include<map> 
 #include<stack> 
 #include<deque> 
 using namespace std; 
-// @lc code=start
+// @lc code=start 
+// 贪心
 class Solution {
 public:
-    int maxSubArray(vector<int>& nums) {  
-        int max = nums[0]; 
-        int sum = INT_MIN; 
-        for (int i = 0; i < nums.size(); i++) {
-            if (sum < 0) { 
-                sum = nums[i]; 
-            }  else { 
-                sum += nums[i];  
-            } 
-            max = max > sum ? max : sum;
-        } 
-        return max; 
+    int maxSubArray(vector<int>& nums) {
+       if (nums.size() == 1) {
+        return nums[0]; 
+       }  
+       int len = nums.size();  
+       int result = INT_MIN; 
+       int count = 0; 
+       for (int i = 0; i < len; i++) { 
+            if (count < 0) {
+                count = 0; 
+            }    
+            count += nums[i]; 
+            result = max(count, result); 
+       } 
+       return result; 
     }
 };
 // @lc code=end

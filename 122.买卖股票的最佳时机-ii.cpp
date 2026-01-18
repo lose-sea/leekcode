@@ -16,51 +16,21 @@
 #include<deque> 
 using namespace std; 
 // @lc code=start
-
-// // 常规
-// class Solution {
-// public:
-//     int maxProfit(vector<int>& prices) {  
-//         int result = 0; 
-//         bool have = false; 
-//         for (int i = 0; i < prices.size() - 1; i++) {
-//             if (!have) {
-//                 if (prices[i + 1] < prices[i]) {
-//                     continue; 
-//                 }  else {
-//                     result = result - prices[i]; 
-//                     have = true; 
-//                 }
-//             } else {
-//                 if (prices[i + 1] >= prices[i]) {
-//                     continue;  
-//                 } else {
-//                     result += prices[i]; 
-//                     have = false; 
-//                 } 
-//             } 
-//         } 
-//         if (have) {
-//             result += prices.back(); 
-//         }
-//         return result; 
-//     } 
-// };  
-
-
-// 贪心算法
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
+        if (prices.size() == 1) {
+            return 0;
+        } 
+        size_t len = prices.size();  
         int result = 0; 
-        for (int i = 1; i < prices.size(); i++) {
-            if (prices[i] - prices[i - 1] > 0) {
-                result += prices[i] - prices[i - 1]; 
+        for (size_t i = 0; i < len - 1; i++) { 
+            if (prices[i + 1] - prices[i] > 0) {
+                result += prices[i + 1] - prices[i]; 
             }
         } 
         return result; 
     }
 };
-
 // @lc code=end
 
