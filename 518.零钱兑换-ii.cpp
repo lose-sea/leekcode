@@ -43,7 +43,7 @@ using namespace std;
 //     }
 // }; 
 
-
+// 一维数组
 class Solution {
 public:
     int change(int amount, vector<int>& coins) {
