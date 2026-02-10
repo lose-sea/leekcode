@@ -19,43 +19,84 @@
 #include<numeric> 
 using namespace std; 
 // @lc code=start 
-// // 二维数组
+// // // 二维数组
+// // class Solution {
+// // public:
+// //     int change(int amount, vector<int>& coins) {
+// //         int len = coins.size(); 
+// //         vector<vector<uint64_t>> dp(coins.size(), vector<uint64_t>(amount + 1, 0));  
+// //         for (int i = 0; i <= amount; i++) {
+// //             if (i % coins[0] == 0) {
+// //                 dp[0][i] = 1; 
+// //             }
+// //         }  
+// //         for (int i = 1; i < len; i++) {
+// //             for (int j = 0; j <= amount; j++) { 
+// //                 if (coins[i] > j) {
+// //                     dp[i][j] = dp[i - 1][j]; 
+// //                 } else {
+// //                     dp[i][j] = dp[i - 1][j] + dp[i][j - coins[i]]; 
+// //                 }
+// //             }
+// //         }
+// //         return dp[coins.size() - 1][amount]; 
+// //     }
+// // }; 
+
+// // 一维数组
 // class Solution {
 // public:
 //     int change(int amount, vector<int>& coins) {
-//         int len = coins.size(); 
-//         vector<vector<uint64_t>> dp(coins.size(), vector<uint64_t>(amount + 1, 0));  
-//         for (int i = 0; i <= amount; i++) {
-//             if (i % coins[0] == 0) {
-//                 dp[0][i] = 1; 
+//         vector<uint64_t> dp(amount + 1, 0);  
+//         dp[0] = 1;  
+//         for (int i = 0; i < coins.size(); i++) {
+//             for (int j = coins[i]; j <= amount; j++) {
+//                 dp[j] += dp[j - coins[i]]; 
 //             }
-//         }  
-//         for (int i = 1; i < len; i++) {
-//             for (int j = 0; j <= amount; j++) { 
-//                 if (coins[i] > j) {
-//                     dp[i][j] = dp[i - 1][j]; 
-//                 } else {
-//                     dp[i][j] = dp[i - 1][j] + dp[i][j - coins[i]]; 
-//                 }
-//             }
-//         }
-//         return dp[coins.size() - 1][amount]; 
+//         } 
+//         return dp[amount]; 
 //     }
 // }; 
 
-// 一维数组
+// // 一维数组
+// class Solution {
+// public:
+//     int change(int amount, vector<int>& coins) {
+//         vector<unsigned int> dp(amount + 1, 0);  
+//         dp[0] = 1; 
+//         for (int i = 0; i < coins.size(); i++) {
+//             for (int j = coins[i]; j <= amount; j++) {
+//                 dp[j] += dp[j - coins[i]]; 
+//             }
+//         } 
+//         return dp[amount]; 
+//     }
+// }; 
+
+
+
+// 二维数组
 class Solution {
 public:
     int change(int amount, vector<int>& coins) {
-        vector<uint64_t> dp(amount + 1, 0);  
-        dp[0] = 1;  
-        for (int i = 0; i < coins.size(); i++) {
-            for (int j = coins[i]; j <= amount; j++) {
-                dp[j] += dp[j - coins[i]]; 
+        vector<vector<uint64_t>> dp(coins.size(), vector<uint64_t>(amount + 1, 0));  
+        for (int i = 0; i <= amount; i++) {
+            if (i % coins[0] == 0) {
+                dp[0][i] = 1; 
+            }
+        }
+        for (int i = 1; i < coins.size(); i++) {
+            for (int j = 0; j <= amount; j++) {
+                if (j < coins[i]) {
+                    dp[i][j] = dp[i - 1][j]; 
+                } else {
+                    dp[i][j] = dp[i - 1][j] + dp[i][j - coins[i]]; 
+                }
             }
         } 
-        return dp[amount]; 
+        return dp[coins.size() - 1][amount]; 
     }
 };
+
 // @lc code=end
 
