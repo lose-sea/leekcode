@@ -3,7 +3,8 @@
  *
  * [1] 两数之和
  */
-
+#include<stdio.h> 
+#include<stdlib.h>
 // @lc code=start
 /**
  * Note: The returned array must be malloced, assume caller calls free().
