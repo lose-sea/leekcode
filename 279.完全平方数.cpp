@@ -55,7 +55,7 @@ public:
                 }
             }
         } 
-        return dp[(double)sqrt(n)][n]; 
+        return dp[(int)sqrt(n)][n]; 
     }
 };
 // @lc code=end
