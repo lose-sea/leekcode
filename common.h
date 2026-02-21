@@ -9,7 +9,8 @@
 #include<map> 
 #include<stack> 
 #include<cmath> 
-#include<deque> 
+#include<deque>  
+#include<numeric>
 using namespace std; 
 
 struct TreeNode {
